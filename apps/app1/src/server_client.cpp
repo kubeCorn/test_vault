@@ -46,7 +46,7 @@ std::string Server_client::run()
     //app1 call app2 to ge the date and return it to the user
     //app1 also keep an history of the response sent since app1 start   
     std::cout << "start server_client run" << std::endl;
-    std::string path_to_file = "client_history.txt";//"/data/history/client_history.txt";
+    std::string path_to_file = "/data/history/client_history.txt";
     std::cout << "we will store output history in " << path_to_file << std::endl;
 
     std::fstream file(path_to_file, std::ios::in | std::ios::out | std::ios::app);
@@ -62,6 +62,7 @@ std::string Server_client::run()
     std::cout << "client use url: " << url << std::endl;
     data = client.getDate();
     
+    file << "Call app2 got response: " << data << std::endl;
     //std::cout << "client data: " << data << std::endl;
     file.close();
     return data;

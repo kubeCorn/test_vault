@@ -127,3 +127,11 @@ docker-compose --env-file ../var.bzl up
 docker ps # Get Containers ID
 docker exec -it CONTAINER_ID bash # Open bash in container
 ```
+
+```
+# k8s
+
+check the README_K8s to start the cluster
+
+curl http://localhost:80/app1
+curl http://localhost:80/app2

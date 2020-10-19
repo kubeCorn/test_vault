@@ -1,0 +1,31 @@
+version: "3"
+services:
+  app2:
+    container_name: app2
+    #image: ghcr.io/kubecorn/test_vault/app2:latest
+    image: crow/apps/app2:app2_image
+    networks:
+      - default
+    environment:
+      - CONTAINERIZED_ENV=true
+      - PORT_APP2=${APP2_PORT}
+    volumes: 
+      - shared:/data/history:rw
+
+  app1:
+    container_name: app1
+    #image: ghcr.io/kubecorn/test_vault/app1:latest
+    image: crow/apps/app1:app1_image
+    environment:
+      - CONTAINERIZED_ENV=true
+    networks:
+      - default
+    volumes:
+      - shared:/data/history:rw
+
+volumes: 
+    shared:
+
+networks:
+  default:
+    driver: bridge

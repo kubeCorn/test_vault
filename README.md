@@ -64,6 +64,9 @@ bazel run //apps/app2:app2_image
 ```
 # push image
 ``` bash
+if not already done: cat ~/GH_TOKEN.txt | docker login ghcr.io -u YOUR_USER --password-stdin
+
+
 bazel run //apps/app1:app1_push --embed_label="your_new_image_version"
 bazel run //apps/app2:app2_push  --embed_label="your_new_image_version"
 

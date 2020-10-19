@@ -13,7 +13,7 @@ cc_binary(
 )
 
 load("@io_bazel_rules_docker//container:container.bzl", "container_image","container_push")
-load("//:var.bzl", "APP1_PORT", "APP2_PORT", "CLIENT_DELAY_MS","CLIENT_MAX_DURATION_SECONDS", "K8S_CLIENT_TO_SERVER_ENDPOINT")
+load("//:var.bzl", "APP1_PORT", "APP2_PORT", "K8S_CLIENT_TO_SERVER_ENDPOINT")
 
 container_image(
     name = "app1_image",
@@ -29,9 +29,6 @@ container_image(
     env = {
         "APP2_PORT": APP2_PORT,
         "APP1_PORT": APP1_PORT,
-        "CONTAINERIZED_ENV": "true",
-        "CLIENT_DELAY_MS": CLIENT_DELAY_MS,
-        "CLIENT_MAX_DURATION_SECONDS": CLIENT_MAX_DURATION_SECONDS,
     },
 )
 
@@ -60,9 +57,7 @@ container_image(
     env = {
         "APP2_PORT": APP2_PORT,
         "APP1_PORT": APP1_PORT,
-        "CLIENT_DELAY_MS": CLIENT_DELAY_MS,
-        "CLIENT_MAX_DURATION_SECONDS": CLIENT_MAX_DURATION_SECONDS,
-        "SERVER_ENDPOINT": K8S_CLIENT_TO_SERVER_ENDPOINT
+        "k8S_CLIENT_TO_SERVER_ENDPOINT": K8S_CLIENT_TO_SERVER_ENDPOINT
     },
 )
 

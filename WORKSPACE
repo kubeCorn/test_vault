@@ -70,6 +70,6 @@ load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
 container_pull(
     name = "centos7_with_curl",
     registry = "ghcr.io",
-    repository = "kubecorn/test-crow/centos7_curl",
+    repository = "kubecorn/test_vault/centos7_curl",
     tag = "1.0",
 )

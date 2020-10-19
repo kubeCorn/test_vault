@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    kind.service: app2
+  name: app2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      kind.service: app2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        kind.service: app2
+    spec:
+      containers:
+      - image: ghcr.io/kubecorn/test_vault/app2:latest
+        imagePullPolicy: "Always"
+        name: app2
+        livenessProbe:
+          exec:
+            command:
+            - /bin/bash
+            - -c 
+            - "[[ ! -z $(pgrep -x 'app2_bin') ]] && echo 'app2_bin PID found' || exit 1"
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        readinessProbe:
+          tcpSocket:
+            port: 9080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        ports:
+        - containerPort: 9080
+        resources: {}
+        # volumeMounts:
+        # - mountPath: /data/history
+        #   name: shared
+      imagePullSecrets:
+      - name: kubecorn-registry
+      restartPolicy: Always
+      # serviceAccountName: ""
+      # volumes:
+      # - name: shared
+      #   persistentVolumeClaim:
+      #     claimName: shared
+status: {}

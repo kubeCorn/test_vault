@@ -16,9 +16,9 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
 std::string Client::getUrl()
 {
      std::string address = "localhost";
-     if(std::getenv("SERVER_ENDPOINT"))
+     if(std::getenv("k8S_CLIENT_TO_SERVER_ENDPOINT"))
      {
-         address = std::getenv("SERVER_ENDPOINT");
+         address = std::getenv("k8S_CLIENT_TO_SERVER_ENDPOINT");
      }
      else if(std::getenv("CONTAINERIZED_ENV"))
      {

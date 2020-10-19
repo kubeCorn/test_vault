@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app1 
+spec:
+  containers:
+  - image: ghcr.io/kubecorn/test_vault/app1:latest
+    name: app1
+    resources: {}
+  restartPolicy: OnFailure
+  imagePullSecrets:
+  - name: kubecorn-registry

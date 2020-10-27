@@ -78,21 +78,13 @@ systemctl ssh status // active(running) if not installed ( try sudo yum –y ins
 also verify response from ping 8.8.8.8 -> ok you are connected to the wwweb
 ```
 
-# test on port 8080 with "hello world" message each "200 ms"
-``` bash
-./crow_server 8080 "hello world" 200 //terminal 1
-./crow_client 8080 // terminal 2  
-```
-``` console
-response in Terminal1 : {"Message":"hello world","ID":57,"Date":"Thu Oct  1 11:09:26 2020\n"}
-```
 
 # Test with image
 ``` bash 
 for now the port is hard coded in the image
 
-docker run -d -p 9080:9080 crow_2/apps/app2:app2_image
-docker run -d -p 9081:9081 crow_2/apps/app1:app1_image
+docker run -d -p 9080:9080 crow/apps/app2:app2_image
+docker run -d -p 9081:9081 crow/apps/app1:app1_image
 
 ```
 # Unit Test 
@@ -132,13 +124,22 @@ docker exec -it CONTAINER_ID bash # Open bash in container
 # k8s
 
 check the README_K8s to start the cluster
+sh recreate-cluster.sh
+kubectl apply -f deployments/app2-deployment.yml
+kubectl apply -f deployments/app2-service.yml
+kubectl apply -f deployments/app1-deployment.yml
+kubectl apply -f deployments/app1-service.yml
+kubectl apply -f deployments/ingress-server.yml
 
+test:
 curl http://localhost:80/app1
 curl http://localhost:80/app2
 
 
+to see file testing volume:
+kubectl exec -it {app1-pod-name} /bin/bash
+cat /data/history/client_history.txt
 
-```
 ```
 # postgres
 

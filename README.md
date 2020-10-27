@@ -135,3 +135,33 @@ check the README_K8s to start the cluster
 
 curl http://localhost:80/app1
 curl http://localhost:80/app2
+
+
+
+```
+```
+# postgres
+
+create and push postgres image with init data:
+
+cd postgresImage
+docker build . -t ghcr.io/kubecorn/test_vault/postgres:v1
+docker push ghcr.io/kubecorn/test_vault/postgres:v1
+ 
+access postgres db in docker iamge:
+
+start container: docker run -p 5432:5432 ghcr.io/kubecorn/test_vault/postgres:v1
+access db: psql -h localhost -U postgresadmin --password -p 5432 postgresdb
+password is admin123
+
+add postgres in k8s:
+once cluster is started:
+
+kubectl apply -f deployments/postgres-configPwd.yml
+kubectl apply -f deployments/postgres-storage.yml
+kubectl apply -f deployments/postgres-deployment.yml
+kubectl apply -f deployments/postgres-service.yml
+
+access db in cluster:
+kubectl run -it --rm --image=postgres:10.14 --restart=Never postgres-client --env="PGPASSWORD=admin123" -- psql -h postgres -U postgresadmin -d postgresdb -p 5432
+

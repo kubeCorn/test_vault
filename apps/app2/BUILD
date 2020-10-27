@@ -2,12 +2,12 @@ cc_binary(
     name = "app2_bin",
     srcs = ["src/server.cpp"],
     deps = ["//third_party/Config:libconfig","//third_party/crow:libcrow","//third_party/getTimeOfDay:libtime"],
-    linkopts = ["-lpthread"],
+    linkopts = ["-lpthread", "-lpqxx"],
     visibility = ["//visibility:public"],
 )
 
 load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
-load("//:var.bzl", "APP2_PORT", "SERVER_MESSAGE")
+load("//:var.bzl", "APP2_PORT", "SERVER_MESSAGE", "K8S_POSTGRES_ENDPOINT")
 
 container_image(
     name = "app2_image",
@@ -23,6 +23,7 @@ container_image(
     env = {
         "APP2_PORT": APP2_PORT,
         "SERVER_MESSAGE": SERVER_MESSAGE,
+        "K8S_POSTGRES_ENDPOINT": K8S_POSTGRES_ENDPOINT,
     },
 )
 

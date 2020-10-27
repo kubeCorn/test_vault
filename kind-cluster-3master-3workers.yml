@@ -13,7 +13,7 @@ kubeadmConfigPatches: # !!WARNING!! IN ORDER TO MAKE LENS WORKING REPLACE 10.1.2
   - |
     kind: ClusterConfiguration
     apiServer:
-      certSANs: [localhost, "127.0.0.1", "10.1.28.56", "0.0.0.0"]
+      certSANs: [localhost, "127.0.0.1", "192.168.56.142", "0.0.0.0"]
 nodes:
 - role: control-plane
   kubeadmConfigPatches:
